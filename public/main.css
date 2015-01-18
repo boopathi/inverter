@@ -1,0 +1,39 @@
+html, body, #react{
+	height: 100%;
+	margin: 0;
+}
+.inverter {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: black;
+}
+
+.inverter .row {
+	display: flex;
+	flex-direction: column;
+}
+
+.inverter .box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 50px;
+	height: 50px;
+	margin: 3px;
+	float: left;
+	border-radius: 2px;
+	background-color: gray;
+	box-shadow: 0 0 0 0 gray;
+	transition: background-color 0.5s ease, box-shadow 0.6s ease;
+}
+
+/*.inverter .off {
+	background-color: gray;
+}*/
+
+.inverter .on {
+	background-color: white;
+	box-shadow: 0 0 20px 3px white;
+}
