@@ -1,0 +1,27 @@
+{
+  "name": "inverter",
+  "version": "0.1.0",
+  "description": "A game of lights",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/boopathi/inverter"
+  },
+  "keywords": [
+    "inverter",
+    "game",
+    "of",
+    "lights",
+    "lights",
+    "game"
+  ],
+  "author": "boopathi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/boopathi/inverter/issues"
+  },
+  "homepage": "https://github.com/boopathi/inverter"
+}
