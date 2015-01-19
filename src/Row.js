@@ -3,7 +3,7 @@ var Box = require('./Box');
 module.exports = React.createClass({
 	render: function() {
 		var boxes = [];
-		for(var i=0;i<this.props.state.ncols;i++) {
+		for(var i=0;i<this.props.ncols;i++) {
 			boxes.push(
 				<Box
 					nextState={this.props.nextState}

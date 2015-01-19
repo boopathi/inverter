@@ -47,8 +47,8 @@
 	var Inverter = __webpack_require__(1);
 	document.addEventListener('DOMContentLoaded', function() {
 		React.render(React.createElement(Inverter, {
-			nrows: 3,
-			ncols: 3
+			nrows: 6,
+			ncols: 6
 		}), document.getElementById('react'));
 	});
 
@@ -56,29 +56,44 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Row = __webpack_require__(2);
+	var Row = __webpack_require__(2),
+		Title = __webpack_require__(3),
+		Options = __webpack_require__(4);
 
 	module.exports = React.createClass({displayName: "exports",
 		getInitialState: function() {
+			return this.newState(this.props.nrows, this.props.ncols);
+		},
+		newState: function(type) {
 			var state = [];
 			for(var i=0;i<this.props.nrows;i++) {
 				var row = [];
 				for(var j=0;j<this.props.ncols;j++) {
-					row.push(false);
+					if(type === "random")
+						row.push(Math.random() >= 0.5);
+					else
+						row.push(false);
 				}
 				state.push(row);
 			}
 			return {
 				game: false,
-				state: state,
-				nrows: this.props.nrows,
-				ncols: this.props.ncols
+				state: state
 			};
+		},
+		reset: function() {
+			this.setState(this.newState(this.props.nrows, this.props.ncols));
+		},
+		changeBoardSize: function(n) {
+			this.setProps({
+				nrows: n,
+				ncols: n
+			});
 		},
 		isGameOver: function() {
 			var game = true;
-			for(var i=0;i<this.state.nrows; i++) {
-				for(var j=0;j<this.state.ncols; j++) {
+			for(var i=0;i<this.props.nrows; i++) {
+				for(var j=0;j<this.props.ncols; j++) {
 					if(this.state.state[i][j] === false) {
 						game=false;
 						break;
@@ -104,13 +119,7 @@
 				state: state
 			}, function() {
 				if(this.isGameOver()) {
-					this.setState({
-						game: true
-					});
-				} else if(this.state.game) {
-					this.setState({
-						game: false
-					});
+					this.setState({ game: true });
 				}
 			});
 		},
@@ -119,6 +128,7 @@
 			for(var i=0;i<this.props.nrows;i++) {
 				rows.push(
 					React.createElement(Row, {
+						ncols: this.props.ncols, 
 						nextState: this.nextState, 
 						i: i, 
 						state: this.state, 
@@ -129,9 +139,27 @@
 				inverter: true,
 				gamedone: this.state.game
 			});
-			return React.createElement("div", {className: classes}, 
-				rows
+			var overlay_classes = React.addons.classSet({
+				overlay: true,
+				visible: this.state.game
+			});
+			var reset = React.createElement("div", {className: overlay_classes}, 
+				React.createElement("div", {className: "reset-btn", onClick: this.reset}, "Reset")
 			);
+			return React.createElement("div", {className: "container"}, 
+				React.createElement(Title, {game: this.state.game}), 
+				/*<Options
+					changeBoardSize={this.changeBoardSize}
+					game={this.state.game}
+					nrows={this.props.nrows}
+					ncols={this.props.ncols} />*/
+				React.createElement("div", {className: classes}, 
+					React.createElement("div", {className: "board"}, 
+						rows, 
+						reset
+					)
+				)
+			)
 		}
 	});
 
@@ -139,12 +167,12 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Box = __webpack_require__(3);
+	var Box = __webpack_require__(5);
 
 	module.exports = React.createClass({displayName: "exports",
 		render: function() {
 			var boxes = [];
-			for(var i=0;i<this.props.state.ncols;i++) {
+			for(var i=0;i<this.props.ncols;i++) {
 				boxes.push(
 					React.createElement(Box, {
 						nextState: this.props.nextState, 
@@ -165,11 +193,53 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = React.createClass({displayName: "exports",
+		render: function() {
+			var message;
+			if(!this.props.game) {
+				message = React.createElement("div", {className: "title"}, 
+					"Turn ", '\u00A0', this.props.game ? 'OFF' : 'ON', '\u00A0', " the lights !!!"
+				);
+			} else {
+				message = (React.createElement("div", {className: "title wish"}, 
+					"Congratulations !!!"
+				));
+			}
+			return message;
+		}
+	});
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = React.createClass({displayName: "exports",
+		changeBoardSize: function(e) {
+			this.props.changeBoardSize(e.target.value);
+		},
+		render: function() {
+			var sizes = [];
+			for(var i=0;i<7;i++) {
+				sizes.push(React.createElement("option", {value: i+3, key: i+3}, i+3));
+			}
+			return React.createElement("div", {className: "help"}, 
+				React.createElement("select", {onChange: this.changeBoardSize}, 
+					sizes
+				)
+			);
+		}
+	});
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = React.createClass({displayName: "exports",
 		onclick: function() {
 			this.props.nextState(this.props.i, this.props.j);
 		},
 		render: function() {
 			var cx = React.addons.classSet;
+			//console.log(this.props.i, this.props.j);
 			var classes = cx({
 				box: true,
 				on: this.props.state.state[this.props.i][this.props.j],

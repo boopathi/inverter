@@ -4,6 +4,7 @@ module.exports = React.createClass({
 	},
 	render: function() {
 		var cx = React.addons.classSet;
+		//console.log(this.props.i, this.props.j);
 		var classes = cx({
 			box: true,
 			on: this.props.state.state[this.props.i][this.props.j],

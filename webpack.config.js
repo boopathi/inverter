@@ -19,6 +19,5 @@ module.exports = {
 		]
 	},
 	noInfo: true,
-	colors: true,
-	watch: true
+	colors: true
 };

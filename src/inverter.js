@@ -1,26 +1,41 @@
-var Row = require('./Row');
+var Row = require('./Row'),
+	Title = require('./Title'),
+	Options = require('./Options');
 
 module.exports = React.createClass({
 	getInitialState: function() {
+		return this.newState(this.props.nrows, this.props.ncols);
+	},
+	newState: function(type) {
 		var state = [];
 		for(var i=0;i<this.props.nrows;i++) {
 			var row = [];
 			for(var j=0;j<this.props.ncols;j++) {
-				row.push(false);
+				if(type === "random")
+					row.push(Math.random() >= 0.5);
+				else
+					row.push(false);
 			}
 			state.push(row);
 		}
 		return {
 			game: false,
-			state: state,
-			nrows: this.props.nrows,
-			ncols: this.props.ncols
+			state: state
 		};
+	},
+	reset: function() {
+		this.setState(this.newState(this.props.nrows, this.props.ncols));
+	},
+	changeBoardSize: function(n) {
+		this.setProps({
+			nrows: n,
+			ncols: n
+		});
 	},
 	isGameOver: function() {
 		var game = true;
-		for(var i=0;i<this.state.nrows; i++) {
-			for(var j=0;j<this.state.ncols; j++) {
+		for(var i=0;i<this.props.nrows; i++) {
+			for(var j=0;j<this.props.ncols; j++) {
 				if(this.state.state[i][j] === false) {
 					game=false;
 					break;
@@ -46,13 +61,7 @@ module.exports = React.createClass({
 			state: state
 		}, function() {
 			if(this.isGameOver()) {
-				this.setState({
-					game: true
-				});
-			} else if(this.state.game) {
-				this.setState({
-					game: false
-				});
+				this.setState({ game: true });
 			}
 		});
 	},
@@ -61,6 +70,7 @@ module.exports = React.createClass({
 		for(var i=0;i<this.props.nrows;i++) {
 			rows.push(
 				<Row
+					ncols={this.props.ncols}
 					nextState={this.nextState}
 					i={i}
 					state={this.state}
@@ -71,8 +81,26 @@ module.exports = React.createClass({
 			inverter: true,
 			gamedone: this.state.game
 		});
-		return <div className={classes}>
-			{rows}
+		var overlay_classes = React.addons.classSet({
+			overlay: true,
+			visible: this.state.game
+		});
+		var reset = <div className={overlay_classes}>
+			<div className="reset-btn" onClick={this.reset} >Reset</div>
 		</div>;
+		return <div className="container">
+			<Title game={this.state.game} />
+			{/*<Options
+				changeBoardSize={this.changeBoardSize}
+				game={this.state.game}
+				nrows={this.props.nrows}
+				ncols={this.props.ncols} />*/}
+			<div className={classes}>
+				<div className="board">
+					{rows}
+					{reset}
+				</div>
+			</div>
+		</div>
 	}
 });
