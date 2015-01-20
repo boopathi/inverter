@@ -4,7 +4,7 @@ var Row = require('./Row'),
 
 module.exports = React.createClass({
 	getInitialState: function() {
-		return this.newState(this.props.nrows, this.props.ncols);
+		return this.newState("empty");
 	},
 	newState: function(type) {
 		var state = [];
@@ -12,7 +12,7 @@ module.exports = React.createClass({
 			var row = [];
 			for(var j=0;j<this.props.ncols;j++) {
 				if(type === "random")
-					row.push(Math.random() >= 0.5);
+					row.push(Math.random() >= 0.8);
 				else
 					row.push(false);
 			}
@@ -23,8 +23,8 @@ module.exports = React.createClass({
 			state: state
 		};
 	},
-	reset: function() {
-		this.setState(this.newState(this.props.nrows, this.props.ncols));
+	reset: function(type) {
+		this.setState(this.newState(type || "empty"));
 	},
 	changeBoardSize: function(n) {
 		this.setProps({
@@ -95,6 +95,8 @@ module.exports = React.createClass({
 				game={this.state.game}
 				nrows={this.props.nrows}
 				ncols={this.props.ncols} />*/}
+			<Options
+				reset={this.reset} />
 			<div className={classes}>
 				<div className="board">
 					{rows}

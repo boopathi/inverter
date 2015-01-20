@@ -1,16 +1,14 @@
 module.exports = React.createClass({
-	changeBoardSize: function(e) {
-		this.props.changeBoardSize(e.target.value);
+	resetEmpty: function() {
+		this.props.reset('empty');
+	},
+	resetRandom: function() {
+		this.props.reset('random');
 	},
 	render: function() {
-		var sizes = [];
-		for(var i=0;i<7;i++) {
-			sizes.push(<option value={i+3} key={i+3}>{i+3}</option>);
-		}
-		return <div className="help">
-			<select onChange={this.changeBoardSize}>
-				{sizes}
-			</select>
+		return <div className="opts">
+			<div className="reset-btn" onClick={this.resetEmpty}>Empty</div>
+			<div className="reset-btn" onClick={this.resetRandom}>Random</div>
 		</div>;
 	}
 });

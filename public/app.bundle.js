@@ -47,8 +47,8 @@
 	var Inverter = __webpack_require__(1);
 	document.addEventListener('DOMContentLoaded', function() {
 		React.render(React.createElement(Inverter, {
-			nrows: 6,
-			ncols: 6
+			nrows: 5,
+			ncols: 5
 		}), document.getElementById('react'));
 	});
 
@@ -67,6 +67,7 @@
 		console.log('Service worker not supported');
 	}
 
+
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
@@ -77,7 +78,7 @@
 
 	module.exports = React.createClass({displayName: "exports",
 		getInitialState: function() {
-			return this.newState(this.props.nrows, this.props.ncols);
+			return this.newState("empty");
 		},
 		newState: function(type) {
 			var state = [];
@@ -85,7 +86,7 @@
 				var row = [];
 				for(var j=0;j<this.props.ncols;j++) {
 					if(type === "random")
-						row.push(Math.random() >= 0.5);
+						row.push(Math.random() >= 0.8);
 					else
 						row.push(false);
 				}
@@ -96,8 +97,8 @@
 				state: state
 			};
 		},
-		reset: function() {
-			this.setState(this.newState(this.props.nrows, this.props.ncols));
+		reset: function(type) {
+			this.setState(this.newState(type || "empty"));
 		},
 		changeBoardSize: function(n) {
 			this.setProps({
@@ -168,6 +169,8 @@
 					game={this.state.game}
 					nrows={this.props.nrows}
 					ncols={this.props.ncols} />*/
+				React.createElement(Options, {
+					reset: this.reset}), 
 				React.createElement("div", {className: classes}, 
 					React.createElement("div", {className: "board"}, 
 						rows, 
@@ -228,18 +231,16 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = React.createClass({displayName: "exports",
-		changeBoardSize: function(e) {
-			this.props.changeBoardSize(e.target.value);
+		resetEmpty: function() {
+			this.props.reset('empty');
+		},
+		resetRandom: function() {
+			this.props.reset('random');
 		},
 		render: function() {
-			var sizes = [];
-			for(var i=0;i<7;i++) {
-				sizes.push(React.createElement("option", {value: i+3, key: i+3}, i+3));
-			}
-			return React.createElement("div", {className: "help"}, 
-				React.createElement("select", {onChange: this.changeBoardSize}, 
-					sizes
-				)
+			return React.createElement("div", {className: "opts"}, 
+				React.createElement("div", {className: "reset-btn", onClick: this.resetEmpty}, "Empty"), 
+				React.createElement("div", {className: "reset-btn", onClick: this.resetRandom}, "Random")
 			);
 		}
 	});
