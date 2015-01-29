@@ -6,12 +6,18 @@ module.exports = React.createClass({
 	getInitialState: function() {
 		return this.newState("empty");
 	},
-	newState: function(type) {
+	componentWillReceiveProps: function(props) {
+		this.setState(this.newState('board', props));
+	},
+	newState: function(type, props) {
+		if(typeof props === 'undefined') props = this.props;
 		var state = [];
-		for(var i=0;i<this.props.nrows;i++) {
+		for(var i=0;i<props.nrows;i++) {
 			var row = [];
-			for(var j=0;j<this.props.ncols;j++) {
-				if(type === "random")
+			for(var j=0;j<props.ncols;j++) {
+				if(type === "board")
+					row.push(!props.matrix[i][j]);
+				else if(type === "random")
 					row.push(Math.random() >= 0.8);
 				else
 					row.push(false);
@@ -24,13 +30,7 @@ module.exports = React.createClass({
 		};
 	},
 	reset: function(type) {
-		this.setState(this.newState(type || "empty"));
-	},
-	changeBoardSize: function(n) {
-		this.setProps({
-			nrows: n,
-			ncols: n
-		});
+		this.setState(this.newState(type || "board"));
 	},
 	isGameOver: function() {
 		var game = true;
@@ -86,16 +86,13 @@ module.exports = React.createClass({
 			visible: this.state.game
 		});
 		var reset = <div className={overlay_classes}>
-			<div className="reset-btn" onClick={this.reset} >Reset</div>
+			<div className="reset-btn" onClick={this.props.levelup} >Level {this.props.level+1}</div>
 		</div>;
 		return <div className="container">
-			<Title game={this.state.game} />
-			{/*<Options
-				changeBoardSize={this.changeBoardSize}
-				game={this.state.game}
-				nrows={this.props.nrows}
-				ncols={this.props.ncols} />*/}
+			<Title game={this.state.game} level={this.props.level} />
 			<Options
+				leveldown={this.props.leveldown}
+				levelup={this.props.levelup}
 				reset={this.reset} />
 			<div className={classes}>
 				<div className="board">

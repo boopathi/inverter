@@ -22,7 +22,15 @@ body {
 	font-size: 20px;
 	text-align: center;
 	display: flex;
-	align-items: flex-end;
+	align-items: center;
+	flex: 2 0 0;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.container .title > div {
+	display: flex;
+	align-items: center;
 	flex: 1 0 0;
 }
 

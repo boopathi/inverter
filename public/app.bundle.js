@@ -45,11 +45,39 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Inverter = __webpack_require__(1);
+	var LevelMatrices = __webpack_require__(2);
+
+	var Board = React.createClass({displayName: "Board",
+		getInitialState: function() {
+			return {
+				level: 0
+			};
+		},
+		levelup: function() {
+			if(this.state.level < LevelMatrices.length - 1)
+				this.setState({
+					level: this.state.level + 1
+				});
+		},
+		leveldown: function() {
+			if(this.state.level > 0)
+				this.setState({
+					level: this.state.level - 1
+				});
+		},
+		render: function() {
+			return React.createElement(Inverter, {
+				nrows: LevelMatrices[this.state.level].length, 
+				ncols: LevelMatrices[this.state.level][0].length, 
+				levelup: this.levelup, 
+				leveldown: this.leveldown, 
+				level: this.state.level, 
+				matrix: LevelMatrices[this.state.level]});
+		}
+	});
+
 	document.addEventListener('DOMContentLoaded', function() {
-		React.render(React.createElement(Inverter, {
-			nrows: 5,
-			ncols: 5
-		}), document.getElementById('react'));
+		React.render(React.createElement(Board, null), document.getElementById('react'));
 	});
 
 	if(navigator.serviceWorker) {
@@ -72,20 +100,26 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Row = __webpack_require__(2),
-		Title = __webpack_require__(3),
-		Options = __webpack_require__(4);
+	var Row = __webpack_require__(3),
+		Title = __webpack_require__(4),
+		Options = __webpack_require__(5);
 
 	module.exports = React.createClass({displayName: "exports",
 		getInitialState: function() {
 			return this.newState("empty");
 		},
-		newState: function(type) {
+		componentWillReceiveProps: function(props) {
+			this.setState(this.newState('board', props));
+		},
+		newState: function(type, props) {
+			if(typeof props === 'undefined') props = this.props;
 			var state = [];
-			for(var i=0;i<this.props.nrows;i++) {
+			for(var i=0;i<props.nrows;i++) {
 				var row = [];
-				for(var j=0;j<this.props.ncols;j++) {
-					if(type === "random")
+				for(var j=0;j<props.ncols;j++) {
+					if(type === "board")
+						row.push(!props.matrix[i][j]);
+					else if(type === "random")
 						row.push(Math.random() >= 0.8);
 					else
 						row.push(false);
@@ -98,13 +132,7 @@
 			};
 		},
 		reset: function(type) {
-			this.setState(this.newState(type || "empty"));
-		},
-		changeBoardSize: function(n) {
-			this.setProps({
-				nrows: n,
-				ncols: n
-			});
+			this.setState(this.newState(type || "board"));
 		},
 		isGameOver: function() {
 			var game = true;
@@ -160,16 +188,13 @@
 				visible: this.state.game
 			});
 			var reset = React.createElement("div", {className: overlay_classes}, 
-				React.createElement("div", {className: "reset-btn", onClick: this.reset}, "Reset")
+				React.createElement("div", {className: "reset-btn", onClick: this.props.levelup}, "Level ", this.props.level+1)
 			);
 			return React.createElement("div", {className: "container"}, 
-				React.createElement(Title, {game: this.state.game}), 
-				/*<Options
-					changeBoardSize={this.changeBoardSize}
-					game={this.state.game}
-					nrows={this.props.nrows}
-					ncols={this.props.ncols} />*/
+				React.createElement(Title, {game: this.state.game, level: this.props.level}), 
 				React.createElement(Options, {
+					leveldown: this.props.leveldown, 
+					levelup: this.props.levelup, 
 					reset: this.reset}), 
 				React.createElement("div", {className: classes}, 
 					React.createElement("div", {className: "board"}, 
@@ -185,7 +210,180 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Box = __webpack_require__(5);
+	module.exports = [
+		// 0
+		[
+			[1,1,1],
+			[1,1,1],
+			[1,1,1]
+		],
+		// 1
+		[
+			[0,0,0,0,0],
+			[0,0,1,0,0],
+			[0,1,1,1,0],
+			[0,0,1,0,0],
+			[0,0,0,0,0]
+		],
+		// 2
+		[
+			[0,0,0,0,0],
+			[0,0,0,0,0],
+			[0,0,1,0,0],
+			[0,1,0,1,0],
+			[0,1,0,1,0]
+		],
+		// 3
+		[
+			[0,0,1,1,1],
+			[1,0,0,1,0],
+			[1,1,0,0,0],
+			[1,0,0,1,0],
+			[0,0,1,1,1]
+		],
+		// 4
+		[
+			[0,0,0,0,0],
+			[0,1,0,0,0],
+			[0,1,0,0,0],
+			[1,1,1,0,0],
+			[1,0,0,1,1]
+		],
+		// 5
+		[
+			[0,1,1,0,0],
+			[1,0,0,1,1],
+			[0,0,0,1,1],
+			[1,0,0,1,1],
+			[0,1,1,0,0]
+		],
+		// 6
+		[
+			[0,0,0,1,0],
+			[0,0,0,1,0],
+			[0,1,0,0,0],
+			[1,1,0,0,1],
+			[0,0,0,0,0]
+		],
+		// 7
+		[
+			[0,1,1,0,1],
+			[0,0,0,0,1],
+			[1,0,1,1,1],
+			[0,0,1,0,1],
+			[1,1,1,0,1]
+		],
+		// 8
+		[
+			[1,1,1,1,1],
+			[1,1,0,1,1],
+			[1,0,1,0,0],
+			[0,1,0,0,1],
+			[1,1,1,1,0]
+		],
+		// 9
+		[
+			[1,1,0,1,0],
+			[0,1,1,1,0],
+			[1,1,0,1,0],
+			[0,1,1,1,0],
+			[1,1,1,1,1]
+		],
+		// 10
+		[
+			[0,1,1,1,1],
+			[0,0,1,0,0],
+			[1,0,1,0,0],
+			[1,1,0,0,0],
+			[1,0,1,1,0]
+		],
+		// 11
+		[
+			[1,0,0,1,1],
+			[0,0,1,1,1],
+			[0,1,1,0,1],
+			[1,1,1,0,1],
+			[0,1,1,0,0]
+		],
+		// 12
+		[
+			[1,0,0,1,0],
+			[0,0,0,0,1],
+			[1,1,0,0,0],
+			[1,1,0,0,0],
+			[0,0,1,0,0]
+		],
+		// 13
+		[
+			[0,0,0,0,1],
+			[0,0,1,0,0],
+			[0,1,1,0,1],
+			[1,0,1,1,0],
+			[0,1,1,1,1]
+		],
+		// 14
+		[
+			[1,0,0,1,1],
+			[1,1,0,1,0],
+			[0,0,1,0,1],
+			[0,0,1,0,1],
+			[0,1,0,0,1]
+		],
+		// 15
+		[
+			[1,1,1,1,0],
+			[1,0,1,0,1],
+			[1,1,1,0,1],
+			[0,1,1,1,0],
+			[1,1,0,1,1]
+		],
+		// 16
+		[
+			[1,1,0,1,1],
+			[0,0,0,1,1],
+			[0,0,0,1,0],
+			[1,1,1,0,0],
+			[0,1,1,0,0]
+		],
+		// 17
+		[
+			[0,1,1,1,1],
+			[1,0,0,0,1],
+			[0,0,1,0,1],
+			[1,0,0,0,1],
+			[1,1,1,0,0]
+		],
+		// 18
+		[
+			[1,1,0,1,0],
+			[0,0,0,1,0],
+			[1,1,1,1,1],
+			[1,1,0,1,1],
+			[1,1,0,1,0]
+		],
+		// 19
+		[
+			[1,1,0,0,1],
+			[1,0,1,0,1],
+			[1,1,0,1,0],
+			[1,1,1,1,0],
+			[1,0,0,0,1]
+		],
+		// 20
+		[
+			[0,0,0,0,1],
+			[1,0,1,1,0],
+			[0,1,0,0,0],
+			[0,0,0,1,0],
+			[1,0,0,1,0]
+		]
+	];
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Box = __webpack_require__(6);
 
 	module.exports = React.createClass({displayName: "exports",
 		render: function() {
@@ -207,7 +405,7 @@
 	});
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = React.createClass({displayName: "exports",
@@ -215,7 +413,8 @@
 			var message;
 			if(!this.props.game) {
 				message = React.createElement("div", {className: "title"}, 
-					"Turn ", '\u00A0', this.props.game ? 'OFF' : 'ON', '\u00A0', " the lights !!!"
+					React.createElement("div", null, "Turn ", '\u00A0', this.props.game ? 'OFF' : 'ON', '\u00A0', " the lights !!!"), 
+					React.createElement("div", null, "Level ", this.props.level)
 				);
 			} else {
 				message = (React.createElement("div", {className: "title wish"}, 
@@ -227,7 +426,7 @@
 	});
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = React.createClass({displayName: "exports",
@@ -237,16 +436,20 @@
 		resetRandom: function() {
 			this.props.reset('random');
 		},
+		resetBoard: function() {
+			this.props.reset('board');
+		},
 		render: function() {
 			return React.createElement("div", {className: "opts"}, 
-				React.createElement("div", {className: "reset-btn", onClick: this.resetEmpty}, "Empty"), 
-				React.createElement("div", {className: "reset-btn", onClick: this.resetRandom}, "Random")
+				React.createElement("div", {className: "reset-btn", onClick: this.props.leveldown}, "Prev"), 
+				React.createElement("div", {className: "reset-btn", onClick: this.resetBoard}, "Reset"), 
+				React.createElement("div", {className: "reset-btn", onClick: this.props.levelup}, "Next")
 			);
 		}
 	});
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = React.createClass({displayName: "exports",
