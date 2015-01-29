@@ -259,11 +259,11 @@
 		],
 		// 6
 		[
-			[0,0,0,1,0],
-			[0,0,0,1,0],
-			[0,1,0,0,0],
-			[1,1,0,0,1],
-			[0,0,0,0,0]
+			[0,0,1,0,0],
+			[0,0,0,0,0],
+			[1,0,1,0,1],
+			[0,0,0,0,0],
+			[0,0,1,0,0]
 		],
 		// 7
 		[
@@ -414,7 +414,7 @@
 			if(!this.props.game) {
 				message = React.createElement("div", {className: "title"}, 
 					React.createElement("div", null, "Turn ", '\u00A0', this.props.game ? 'OFF' : 'ON', '\u00A0', " the lights !!!"), 
-					React.createElement("div", null, "Level ", this.props.level)
+					React.createElement("div", null, "Level ", '\u00A0', " ", this.props.level)
 				);
 			} else {
 				message = (React.createElement("div", {className: "title wish"}, 
