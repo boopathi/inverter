@@ -1,6 +1,7 @@
 var Row = require('./Row'),
 	Title = require('./Title'),
-	Options = require('./Options');
+	Options = require('./Options'),
+	LevelMatrices = require('./LevelMatrices');
 
 module.exports = React.createClass({
 	getInitialState: function() {
@@ -85,9 +86,10 @@ module.exports = React.createClass({
 			overlay: true,
 			visible: this.state.game
 		});
-		var reset = <div className={overlay_classes}>
-			<div className="reset-btn" onClick={this.props.levelup} >Level {this.props.level+1}</div>
-		</div>;
+		var reset = <div className="reset-btn" onClick={this.props.levelup} >Level {this.props.level+1}</div>
+		if(this.props.level === LevelMatrices.length - 1) {
+			reset = <div className="reset-btn" >Game Complete</div>
+		}
 		return <div className="container">
 			<Title game={this.state.game} level={this.props.level} />
 			<Options
@@ -97,7 +99,9 @@ module.exports = React.createClass({
 			<div className={classes}>
 				<div className="board">
 					{rows}
-					{reset}
+					<div className={overlay_classes}>
+						{reset}
+					</div>
 				</div>
 			</div>
 		</div>

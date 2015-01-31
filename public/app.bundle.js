@@ -102,7 +102,8 @@
 
 	var Row = __webpack_require__(3),
 		Title = __webpack_require__(4),
-		Options = __webpack_require__(5);
+		Options = __webpack_require__(5),
+		LevelMatrices = __webpack_require__(2);
 
 	module.exports = React.createClass({displayName: "exports",
 		getInitialState: function() {
@@ -187,9 +188,10 @@
 				overlay: true,
 				visible: this.state.game
 			});
-			var reset = React.createElement("div", {className: overlay_classes}, 
-				React.createElement("div", {className: "reset-btn", onClick: this.props.levelup}, "Level ", this.props.level+1)
-			);
+			var reset = React.createElement("div", {className: "reset-btn", onClick: this.props.levelup}, "Level ", this.props.level+1)
+			if(this.props.level === LevelMatrices.length - 1) {
+				reset = React.createElement("div", {className: "reset-btn"}, "Game Complete")
+			}
 			return React.createElement("div", {className: "container"}, 
 				React.createElement(Title, {game: this.state.game, level: this.props.level}), 
 				React.createElement(Options, {
@@ -199,7 +201,9 @@
 				React.createElement("div", {className: classes}, 
 					React.createElement("div", {className: "board"}, 
 						rows, 
-						reset
+						React.createElement("div", {className: overlay_classes}, 
+							reset
+						)
 					)
 				)
 			)
@@ -363,11 +367,11 @@
 		],
 		// 19
 		[
-			[1,1,0,0,1],
-			[1,0,1,0,1],
-			[1,1,0,1,0],
-			[1,1,1,1,0],
-			[1,0,0,0,1]
+			[1,1,1,1,1],
+			[1,1,1,1,1],
+			[1,1,1,1,1],
+			[1,1,1,1,1],
+			[1,1,1,1,1]
 		],
 		// 20
 		[
