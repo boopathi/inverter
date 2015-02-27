@@ -1,51 +1,11 @@
-(function(e, a) { for(var i in a) e[i] = a[i]; }(this, /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
-/******/ 			return installedModules[moduleId].exports;
-/******/
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			exports: {},
-/******/ 			id: moduleId,
-/******/ 			loaded: false
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(0);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
+(function(e, a) { for(var i in a) e[i] = a[i]; }(this, webpackJsonp([0],{
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	var Inverter = __webpack_require__(1);
-	var LevelMatrices = __webpack_require__(2);
+	var React = __webpack_require__(1);
+	var Inverter = __webpack_require__(2);
+	var LevelMatrices = __webpack_require__(3);
 
 	var Board = React.createClass({displayName: "Board",
 		getInitialState: function() {
@@ -97,13 +57,15 @@
 
 
 /***/ },
-/* 1 */
+
+/***/ 2:
 /***/ function(module, exports, __webpack_require__) {
 
-	var Row = __webpack_require__(3),
-		Title = __webpack_require__(4),
-		Options = __webpack_require__(5),
-		LevelMatrices = __webpack_require__(2);
+	var React = __webpack_require__(1),
+		Row = __webpack_require__(5),
+		Title = __webpack_require__(6),
+		Options = __webpack_require__(7),
+		LevelMatrices = __webpack_require__(3);
 
 	module.exports = React.createClass({displayName: "exports",
 		getInitialState: function() {
@@ -211,7 +173,8 @@
 	});
 
 /***/ },
-/* 2 */
+
+/***/ 3:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = [
@@ -384,10 +347,12 @@
 	];
 
 /***/ },
-/* 3 */
+
+/***/ 5:
 /***/ function(module, exports, __webpack_require__) {
 
-	var Box = __webpack_require__(6);
+	var React = __webpack_require__(1);
+	var Box = __webpack_require__(33);
 
 	module.exports = React.createClass({displayName: "exports",
 		render: function() {
@@ -409,9 +374,11 @@
 	});
 
 /***/ },
-/* 4 */
+
+/***/ 6:
 /***/ function(module, exports, __webpack_require__) {
 
+	var React = __webpack_require__(1);
 	module.exports = React.createClass({displayName: "exports",
 		render: function() {
 			var message;
@@ -430,9 +397,11 @@
 	});
 
 /***/ },
-/* 5 */
+
+/***/ 7:
 /***/ function(module, exports, __webpack_require__) {
 
+	var React = __webpack_require__(1);
 	module.exports = React.createClass({displayName: "exports",
 		resetEmpty: function() {
 			this.props.reset('empty');
@@ -453,9 +422,11 @@
 	});
 
 /***/ },
-/* 6 */
+
+/***/ 33:
 /***/ function(module, exports, __webpack_require__) {
 
+	var React = __webpack_require__(1);
 	module.exports = React.createClass({displayName: "exports",
 		onclick: function() {
 			this.props.nextState(this.props.i, this.props.j);
@@ -473,4 +444,5 @@
 	});
 
 /***/ }
-/******/ ])))
+
+});))

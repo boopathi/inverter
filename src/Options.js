@@ -1,3 +1,4 @@
+var React = require('react');
 module.exports = React.createClass({
 	resetEmpty: function() {
 		this.props.reset('empty');

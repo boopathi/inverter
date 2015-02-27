@@ -1,3 +1,4 @@
+var React = require('react');
 var Inverter = require('./src/inverter');
 var LevelMatrices = require('./src/LevelMatrices');
 
