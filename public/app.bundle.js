@@ -192,11 +192,11 @@
 						this.setState({ focus: [this.state.focus[0] - 1, this.state.focus[1]] });
 					break;
 					case 39: //right
-					if (this.state.focus[1] < this.props.ncols)
+					if (this.state.focus[1] < this.props.ncols - 1)
 						this.setState({ focus: [this.state.focus[0], this.state.focus[1] + 1] });
 						break;
 					case 40: //down
-					if (this.state.focus[0] < this.props.nrows)
+					if (this.state.focus[0] < this.props.nrows - 1)
 						this.setState({ focus: [this.state.focus[0] + 1, this.state.focus[1]] });
 					break;
 					case 50: // number 2
