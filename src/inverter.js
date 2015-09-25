@@ -79,23 +79,31 @@ module.exports = React.createClass({
 			*/
 			switch(e.keyCode) {
 				case 13: //enter
-					this.nextState(this.state.focus[0], this.state.focus[1]);
-					break;
+				this.nextState(this.state.focus[0], this.state.focus[1]);
+				break;
 				case 37: //left
-					if (this.state.focus[1] > 0)
-						this.setState({ focus: [this.state.focus[0], this.state.focus[1] - 1] });
+				if (this.state.focus[1] > 0)
+					this.setState({ focus: [this.state.focus[0], this.state.focus[1] - 1] });
 				break;
 				case 38: //top
-					if (this.state.focus[0] > 0)
-						this.setState({ focus: [this.state.focus[0] - 1, this.state.focus[1]] });
+				if (this.state.focus[0] > 0)
+					this.setState({ focus: [this.state.focus[0] - 1, this.state.focus[1]] });
 				break;
 				case 39: //right
-					if (this.state.focus[1] < this.props.ncols)
-						this.setState({ focus: [this.state.focus[0], this.state.focus[1] + 1] });
-				break;
+				if (this.state.focus[1] < this.props.ncols)
+					this.setState({ focus: [this.state.focus[0], this.state.focus[1] + 1] });
+					break;
 				case 40: //down
-					if (this.state.focus[0] < this.props.nrows)
-						this.setState({ focus: [this.state.focus[0] + 1, this.state.focus[1]] });
+				if (this.state.focus[0] < this.props.nrows)
+					this.setState({ focus: [this.state.focus[0] + 1, this.state.focus[1]] });
+				break;
+				case 50: // number 2
+				this.props.levelup();
+				break;
+				case 53: // number 5
+				this.reset();
+				case 56: // number 8
+				this.props.leveldown();
 				break;
 			}
 		}.bind(this));
