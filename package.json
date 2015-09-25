@@ -29,10 +29,11 @@
     "koa": "^0.14.0",
     "koa-logger": "^1.2.2",
     "koa-static": "^1.4.8",
-    "webpack": "git://github.com/webpack/webpack.git#harmony"
+    "webpack": "^1.6.0"
   },
   "dependencies": {
     "json-loader": "^0.5.1",
-    "jsx-loader": "^0.12.2"
+    "jsx-loader": "^0.12.2",
+    "react": "^0.12.2"
   }
 }

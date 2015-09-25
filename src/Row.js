@@ -1,3 +1,4 @@
+var React = require('react');
 var Box = require('./Box');
 
 module.exports = React.createClass({

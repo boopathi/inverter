@@ -1,4 +1,5 @@
-var Row = require('./Row'),
+var React = require('react'),
+	Row = require('./Row'),
 	Title = require('./Title'),
 	Options = require('./Options'),
 	LevelMatrices = require('./LevelMatrices');

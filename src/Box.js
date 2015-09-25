@@ -1,3 +1,4 @@
+var React = require('react');
 module.exports = React.createClass({
 	onclick: function() {
 		this.props.nextState(this.props.i, this.props.j);

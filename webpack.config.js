@@ -1,14 +1,14 @@
+var webpack = require('webpack');
+
 module.exports = {
 	entry: {
-		app: './index.js'
+		app: './index.js',
+		vendor: ['react'],
 	},
 	output: {
 		path: './public',
 		filename: '[name].bundle.js',
 		libraryTarget: 'this'
-	},
-	externals: {
-		React: 'React'
 	},
 	module: {
 		loaders: [
@@ -18,6 +18,9 @@ module.exports = {
 			}
 		]
 	},
+	plugins: [
+		new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js')
+	],
 	noInfo: true,
 	colors: true
 };
