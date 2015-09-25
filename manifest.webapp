@@ -2,6 +2,10 @@
   "name": "Inverter",
   "description": "A simple lights out game",
   "launch_path": "/inverter/index.html",
+  "icons": {
+    "512": "/inverter/public/4x.png",
+    "128": "/inverter/public/2x.png"
+  },
   "developer": {
     "name": "Boopathi Raja",
     "url": "https://boopathi.in/inverter"
