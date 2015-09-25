@@ -61,6 +61,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	border: solid 3px transparent;
 	width: 50px;
 	height: 50px;
 	margin: 3px;
@@ -78,6 +79,10 @@ body {
 .inverter .on {
 	background-color: white;
 	box-shadow: 0 0 20px 3px white;
+}
+
+.inverter .focus {
+	border: solid 3px purple;
 }
 
 .board {

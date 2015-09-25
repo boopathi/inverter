@@ -27,7 +27,8 @@ module.exports = React.createClass({
 		}
 		return {
 			game: false,
-			state: state
+			state: state,
+			focus: [0, 0],
 		};
 	},
 	reset: function(type) {
@@ -65,6 +66,39 @@ module.exports = React.createClass({
 				this.setState({ game: true });
 			}
 		});
+	},
+	componentDidMount: function() {
+		document.body.addEventListener('keyup', function(e) {
+			console.log(e.keyCode);
+			/*
+			left arrow	37
+			up arrow	38
+			right arrow	39
+			down arrow	40
+			enter 13
+			*/
+			switch(e.keyCode) {
+				case 13: //enter
+					this.nextState(this.state.focus[0], this.state.focus[1]);
+					break;
+				case 37: //left
+					if (this.state.focus[1] > 0)
+						this.setState({ focus: [this.state.focus[0], this.state.focus[1] - 1] });
+				break;
+				case 38: //top
+					if (this.state.focus[0] > 0)
+						this.setState({ focus: [this.state.focus[0] - 1, this.state.focus[1]] });
+				break;
+				case 39: //right
+					if (this.state.focus[1] < this.props.ncols)
+						this.setState({ focus: [this.state.focus[0], this.state.focus[1] + 1] });
+				break;
+				case 40: //down
+					if (this.state.focus[0] < this.props.nrows)
+						this.setState({ focus: [this.state.focus[0] + 1, this.state.focus[1]] });
+				break;
+			}
+		}.bind(this));
 	},
 	render: function() {
 		var rows = [];
