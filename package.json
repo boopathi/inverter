@@ -26,13 +26,13 @@
   },
   "homepage": "https://github.com/boopathi/inverter",
   "devDependencies": {
-    "koa": "^0.14.0",
+    "koa": "^1.2.5",
     "koa-logger": "^1.2.2",
-    "koa-static": "^1.4.8",
+    "koa-static": "^2.1.0",
     "webpack": "git://github.com/webpack/webpack.git#harmony"
   },
   "dependencies": {
     "json-loader": "^0.5.1",
-    "jsx-loader": "^0.12.2"
+    "jsx-loader": "^0.13.2"
   }
 }
