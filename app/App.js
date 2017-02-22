@@ -42,15 +42,30 @@ class App extends Component {
     this.props.store.game.invert(i, j);
   }
   render() {
-    const { board } = this.props.store.game;
+    const {
+      board,
+      level,
+      complete,
+      percentageComplete
+    } = this.props.store.game;
+
     return (
       <div className="container">
         <header className="header">
           <h1 className="title">Inverter</h1>
           <h2 className="sub-heading">a lights out game</h2>
         </header>
+        <div
+          className="level-statuses"
+          style={{ transform: `translateX(${percentageComplete - 100}vw)` }}
+        />
+        <section className="level-container">
+          <h1 className={`level ${complete ? "complete" : ""}`}>
+            Level #{level} {complete ? "✔" : ""}
+          </h1>
+        </section>
         <section className="game-board">
-          <table cellSpacing={2} className="game-board-table">
+          <table cellSpacing={16} className="game-board-table">
             <tbody>
               {board.map((row, i) => (
                 <tr className="board-row">
@@ -58,7 +73,9 @@ class App extends Component {
                     <td
                       className={`board-cell ${col ? "off" : "on"}`}
                       onClick={() => this.invert(i, j)}
-                    />
+                    >
+                      <div className="glow" />
+                    </td>
                   ))}
                 </tr>
               ))}
@@ -66,9 +83,18 @@ class App extends Component {
           </table>
         </section>
         <section className="controls">
-          <div className="control" onClick={this.gotoPrev}>Prev</div>
-          <div className="control" onClick={this.reset}>Reset</div>
-          <div className="control" onClick={this.gotoNext}>Next</div>
+          <div className="control" onClick={this.gotoPrev}>
+            <div className="icon">⇦</div>
+            <div>Prev</div>
+          </div>
+          <div className="control" onClick={this.reset}>
+            <div className="icon">⟲</div>
+            <div>Reset</div>
+          </div>
+          <div className="control" onClick={this.gotoNext}>
+            <div className="icon">⇨</div>
+            <div>Next</div>
+          </div>
         </section>
       </div>
     );

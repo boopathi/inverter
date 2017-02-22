@@ -20,6 +20,21 @@ export default function createStore() {
         this.levels[this.level] = data.levels[this.level];
       }),
 
+      overallCompleteStatus: computed(function() {
+        return this.levels.map(board =>
+          board.every(row => row.every(cell => !cell)));
+      }),
+
+      percentageComplete: computed(function() {
+        return this.overallCompleteStatus.reduce((p, c) => p + (c ? 1 : 0), 0) /
+          this.overallCompleteStatus.length *
+          100;
+      }),
+
+      complete: computed(function() {
+        return this.overallCompleteStatus[this.level];
+      }),
+
       invert: action(function(i, j) {
         this.invertOne(i - 1, j + 0);
         this.invertOne(i + 0, j - 1);
