@@ -23,6 +23,6 @@ module.exports = {
     new webpack.DefinePlugin({
       "process.env": JSON.stringify("production")
     }),
-    new BabiliPlugin()
+    new BabiliPlugin({ mangle: false })
   ]
 };

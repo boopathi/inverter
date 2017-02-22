@@ -73,9 +73,7 @@ class App extends Component {
                     <td
                       className={`board-cell ${col ? "off" : "on"}`}
                       onClick={() => this.invert(i, j)}
-                    >
-                      <div className="glow" />
-                    </td>
+                    />
                   ))}
                 </tr>
               ))}
