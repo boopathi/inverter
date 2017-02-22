@@ -1,23 +1,3 @@
-module.exports = {
-	entry: {
-		app: './index.js'
-	},
-	output: {
-		path: './public',
-		filename: '[name].bundle.js',
-		libraryTarget: 'this'
-	},
-	externals: {
-		React: 'React'
-	},
-	module: {
-		loaders: [
-			{
-				test: /\.js$/,
-				loader: 'jsx-loader?harmony'
-			}
-		]
-	},
-	noInfo: true,
-	colors: true
-};
+module.exports = process.env.NODE_ENV === "production"
+  ? require("./webpack.prod.config")
+  : require("./webpack.dev.config");

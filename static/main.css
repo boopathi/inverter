@@ -1,0 +1,102 @@
+html, body, div, table, tr, td, header, section, button, h1, h2, h3, h4, h5, h6, p {
+  margin: 0; padding: 0; border: 0;
+}
+
+html, body, #root, .container {
+  height: 100%;
+}
+
+body {
+  background: #EEEEEE;
+  font-size: large;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 200;
+}
+
+.container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.header {
+  background: #303F9F;
+  color: #FFFFFF;
+  text-align: left;
+  padding: 65px 20px 50px 55px;
+}
+
+.header .title {
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.header .sub-heading {
+  font-weight: 100;
+  font-size: medium;
+  color: #c5cae9;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-top: solid 1px #424242;
+  height: 80px;
+}
+
+.controls .control {
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.controls .control:not(:last-child) {
+  border-right: solid 1px #424242;
+}
+
+.game-board {
+  height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-board .board-cell {
+  width: 54px;
+  height: 54px;
+  border-radius: 54px;
+  background: #212121;
+}
+
+.game-board .board-cell:after {
+  width: 54px;
+  height: 54px;
+  border-radius: 54px;
+  position: absolute;
+  margin-top: -27px;
+  margin-left: -27px;
+  box-shadow: 0 0 1px 1px #303F9F;
+  transition: opacity 0.2s ease-out;
+  will-change: opacity;
+  content: "";
+  background: #303F9F;
+}
+
+.game-board .board-cell.on:after {
+  opacity: 1;
+}
+
+.game-board .board-cell.off:after {
+  opacity: 0;
+}

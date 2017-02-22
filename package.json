@@ -13,10 +13,8 @@
   },
   "keywords": [
     "inverter",
-    "game",
-    "of",
-    "lights",
-    "lights",
+    "game of lights",
+    "lights out",
     "game"
   ],
   "author": "boopathi",
@@ -26,13 +24,16 @@
   },
   "homepage": "https://github.com/boopathi/inverter",
   "devDependencies": {
-    "koa": "^0.14.0",
-    "koa-logger": "^1.2.2",
-    "koa-static": "^1.4.8",
-    "webpack": "git://github.com/webpack/webpack.git#harmony"
-  },
-  "dependencies": {
-    "json-loader": "^0.5.1",
-    "jsx-loader": "^0.12.2"
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-plugin-inferno": "^1.9.0",
+    "babel-preset-env": "^1.1.8",
+    "babel-preset-react": "^6.23.0",
+    "inferno": "^1.2.2",
+    "inferno-component": "^1.2.2",
+    "inferno-mobx": "^1.2.2",
+    "sw-toolbox": "^3.5.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
   }
 }

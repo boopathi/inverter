@@ -1,0 +1,19 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "modules": false,
+        "target": [
+          "Chrome > 55",
+          "Firefox > 50",
+          "Safari > 10",
+          "Edge > 14"
+        ]
+      }
+    ]
+  ],
+  "plugins": [
+    "inferno"
+  ]
+}
