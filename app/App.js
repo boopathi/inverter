@@ -52,7 +52,9 @@ class App extends Component {
     return (
       <div className="container">
         <header className="header">
-          <h1 className="title">Inverter</h1>
+          <h1 className="title">
+            Inverter
+          </h1>
           <h2 className="sub-heading">a lights out game</h2>
         </header>
         <div

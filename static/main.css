@@ -17,14 +17,14 @@ body {
   text-align: center;
   display: flex;
   flex-direction: column;
-  flex: 1 1 auto;
+  min-height: 100%;
 }
 
 .header {
   background: #303F9F;
   color: #FFFFFF;
-  text-align: left;
-  padding: 50px 20px 35px 45px;
+  text-align: center;
+  padding: 15px 0;
   box-shadow: 0 0 24px 1px #212121;
 }
 
@@ -50,12 +50,16 @@ body {
 }
 
 .controls {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   box-shadow: 0px 8px 24px 1px #212121;
-  height: 120px;
+  height: 50px;
 }
 
 .controls .control {
@@ -95,12 +99,12 @@ body {
 }
 
 .game-board {
-  height: 100%;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 50px;
 }
 
 .game-board .board-cell {
